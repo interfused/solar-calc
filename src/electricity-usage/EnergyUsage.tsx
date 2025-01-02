@@ -7,18 +7,14 @@ function EnergyUsage() {
   console.dir(globalState);
   return (
     <>
-      <h2 className="text-left">Enter your energy usage</h2>
+      <h2 className="text-left mt-8">Enter your energy usage</h2>
       <EnergyUsageForm />
 
-      <div className="mt-4">
-        {globalState.energyEntries.map((el, index) => {
-          return (
-            <div key={"idx" + index} className="text-left">
-              Month: {el.month} <span className="ml-4">kWh: {el.kWh}</span>
-            </div>
-          );
-        })}
-      </div>
+      {!globalState.energyEntries.length && (
+        <div className="text-left mt-2 font-bold text-red-500">
+          Need to enter some energy usage.
+        </div>
+      )}
     </>
   );
 }

@@ -90,8 +90,13 @@ function LatLongForm() {
           </button>
         </div>
       </form>
-      {error}
-      {isLoading ? "Loading..." : ""}
+      <div className="text-left font-bold mt-2 text-red-500">
+        {error}
+        {isLoading ? "Loading..." : ""}
+        {!globalState.LocationData.avg_dni && (
+          <span>Need to enter your location.</span>
+        )}
+      </div>
     </>
   );
 }

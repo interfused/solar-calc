@@ -32,7 +32,7 @@ function App() {
           </div>
         </div>
 
-        <div className="max-w-screen-xl mx-auto">
+        <div className="max-w-screen-xl mx-auto p-4">
           <div className="my-4">
             <LatLongForm></LatLongForm>
           </div>

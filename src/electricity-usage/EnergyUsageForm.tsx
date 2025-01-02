@@ -40,7 +40,21 @@ function EnergyUsageForm() {
     >
       <div className="sm:col-span-3 text-left">
         <label className="block text-sm/6 font-medium">Month</label>
-        <input type="text" name="month" required className="block w-full" />
+        {/* <input type="text" name="month" required className="block w-full" /> */}
+        <select name="month" className="block w-full" required>
+          <option value="January">January</option>
+          <option value="February">February</option>
+          <option value="March">March</option>
+          <option value="April">April</option>
+          <option value="May">May</option>
+          <option value="June">June</option>
+          <option value="July">July</option>
+          <option value="August">August</option>
+          <option value="September">September</option>
+          <option value="October">October</option>
+          <option value="November">November</option>
+          <option value="December">December</option>
+        </select>
       </div>
       <div className="sm:col-span-3 text-left">
         <label className="block text-sm/6 font-medium">kWh Used</label>
