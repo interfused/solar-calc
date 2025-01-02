@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { GlobalStateProvider, useGlobalState } from "../GlobalStateContext";
+import { useGlobalState } from "../GlobalStateContext";
 
 function LatLongForm() {
   const { globalState, setGlobalState } = useGlobalState();
@@ -47,9 +47,9 @@ function LatLongForm() {
         ...prevState,
         LocationData: newEntry, // Update only LocationData
       }));
-    } catch (error) {
-      console.error("Error fetching location data:", error);
-      setError(error.message);
+    } catch (err: any) {
+      console.error("Error fetching location data:", err);
+      setError(err.message);
     } finally {
       setIsLoading(false);
     }
@@ -90,6 +90,8 @@ function LatLongForm() {
           </button>
         </div>
       </form>
+      {error}
+      {isLoading ? "Loading..." : ""}
     </>
   );
 }

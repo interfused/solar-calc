@@ -4,14 +4,18 @@ https://www.solar.com/learn/how-much-is-a-solar-system-for-a-2000-sq-ft-house/
 */
 import { useState } from "react";
 
-import { GlobalStateProvider, useGlobalState } from "../GlobalStateContext";
+import { useGlobalState } from "../GlobalStateContext";
 
 function Calculations() {
   //  const [count, setCount] = useState(0);
   const [panelWattage, setPanelWattage] = useState(350);
   const { globalState } = useGlobalState();
 
-  const getSystemDetails = (dailyKWH, peakSunHours, panelWattage) => {
+  const getSystemDetails = (
+    dailyKWH: number,
+    peakSunHours: number,
+    panelWattage: number
+  ) => {
     const systemSize = dailyKWH / peakSunHours;
     const panelCnt = Math.ceil(systemSize / (panelWattage / 1000));
     return { systemSize, panelCnt };

@@ -5,7 +5,6 @@ type GlobalState = {
   energyEntries: EnergyUsageEntry[]; // Add energyEntries to the global state
   LocationData: LocationData;
   userName: string;
-  lastName: string;
 };
 // Define the context type
 type GlobalStateContextType = {

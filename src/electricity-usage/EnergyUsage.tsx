@@ -1,9 +1,7 @@
-import { useState } from "react";
 import EnergyUsageForm from "./EnergyUsageForm";
-import { GlobalStateProvider, useGlobalState } from "../GlobalStateContext";
+import { useGlobalState } from "../GlobalStateContext";
 
 function EnergyUsage() {
-  const [count, setCount] = useState(0);
   const { globalState } = useGlobalState();
   console.log("global state is");
   console.dir(globalState);

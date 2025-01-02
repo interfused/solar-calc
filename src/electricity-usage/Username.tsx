@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 //import UsernameForm from "./UsernameForm";
-import { GlobalStateProvider, useGlobalState } from "../GlobalStateContext";
+import { useGlobalState } from "../GlobalStateContext";
 
 function Username() {
   //  const [count, setCount] = useState(0);
