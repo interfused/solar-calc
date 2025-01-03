@@ -62,7 +62,7 @@ function LatLongForm() {
       <h2 className="text-left">Where are you located?</h2>
       <form
         onSubmit={addLocationData}
-        className="mt-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-8"
+        className="mt-4 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-8"
       >
         <div className="sm:col-span-3 text-left">
           <label className="block text-sm/6 font-medium">Your Latitude</label>
@@ -84,7 +84,7 @@ function LatLongForm() {
             className="block w-full"
           />
         </div>
-        <div className="sm:col-span-2 text-left pt-6">
+        <div className="sm:col-span-2 text-left md:pt-6">
           <button type="submit" className="text-white bg-blue-500">
             Submit
           </button>

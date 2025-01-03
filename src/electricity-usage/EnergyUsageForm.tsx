@@ -36,7 +36,7 @@ function EnergyUsageForm() {
   return (
     <form
       onSubmit={addToEnergyEntries}
-      className="mt-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-8"
+      className="mt-4 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-8"
     >
       <div className="sm:col-span-3 text-left">
         <label className="block text-sm/6 font-medium">Month</label>
@@ -60,7 +60,7 @@ function EnergyUsageForm() {
         <label className="block text-sm/6 font-medium">kWh Used</label>
         <input type="text" name="kWh" required className="block w-full" />
       </div>
-      <div className="sm:col-span-2 text-left pt-6">
+      <div className="sm:col-span-2 text-left md:pt-6">
         <button type="submit" className="text-white bg-blue-500">
           Add
         </button>

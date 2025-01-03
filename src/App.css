@@ -44,3 +44,13 @@ input{color: #333;}
 .read-the-docs {
   color: #888;
 }
+table,td,th{
+  @apply border border-solid border-gray-200;
+}
+
+td,th{
+  @apply p-2
+}
+th{
+  @apply bg-gray-50;
+}
