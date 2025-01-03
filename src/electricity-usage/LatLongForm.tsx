@@ -18,13 +18,6 @@ function LatLongForm() {
     const latitude = parseFloat(formData.get("latitude") as string);
     const longitude = parseFloat(formData.get("longitude") as string);
 
-    if (isNaN(latitude) || isNaN(longitude)) {
-      console.error(
-        "Invalid input. Please provide valid latitude and longitude."
-      );
-      return;
-    }
-
     setIsLoading(true);
     setError(null);
 
@@ -54,13 +47,14 @@ function LatLongForm() {
       setIsLoading(false);
     }
 
-    event.currentTarget.reset();
+    //event.currentTarget.reset();
   }
 
   return (
     <>
       <h2 className="text-left">Where are you located?</h2>
       <form
+        data-testid="locationForm"
         onSubmit={addLocationData}
         className="mt-4 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-8"
       >
@@ -85,7 +79,11 @@ function LatLongForm() {
           />
         </div>
         <div className="sm:col-span-2 text-left md:pt-6">
-          <button type="submit" className="text-white bg-blue-500">
+          <button
+            type="submit"
+            className="text-white bg-blue-500"
+            aria-label="Submit"
+          >
             Submit
           </button>
         </div>
@@ -102,10 +100,3 @@ function LatLongForm() {
 }
 
 export default LatLongForm;
-/*
-export default () => (
-  <GlobalStateProvider>
-    <LatLongForm />
-  </GlobalStateProvider>
-);
-*/

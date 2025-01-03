@@ -2,7 +2,7 @@
   "compilerOptions": {
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
     "target": "ES2022",
-    "lib": ["ES2023"],
+    "lib": ["ES2023", "dom"],  // Jest relies on DOM types for DOM-related APIs
     "module": "ESNext",
     "skipLibCheck": true,
 
@@ -18,7 +18,21 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+    /* Jest-specific adjustment */
+    "jsx": "react-jsx",  // Optional if you're testing React components
+    "resolveJsonModule": true  // Ensure Jest can import JSON files if needed
   },
-  "include": ["vite.config.ts"]
+  "include": ["vite.config.ts", 
+  "jest.setup.ts",  // Include Jest setup file
+  "src/**/*.ts",     // Include your source TypeScript files for testing
+  "src/**/*.tsx",    // Include your React components for testing if applicable
+  "test/**/*.ts",    // Include test files
+  "test/**/*.tsx"    // Include test files for React components
+  ],
+  "exclude": [
+    "node_modules", 
+    "dist", 
+    "build"
+  ]
 }

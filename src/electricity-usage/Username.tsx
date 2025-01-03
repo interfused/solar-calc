@@ -19,12 +19,7 @@ function Username() {
         onClick={() => {
           const newUsername = "Jeremy";
           console.log("Previous global state:", globalState); // Log before update
-          /*
-          setGlobalState({
-            ...globalState,
-            userName: newUsername,
-          });
-          */
+
           setGlobalState((prevState) => ({
             ...prevState,
             userName: newUsername,
@@ -38,10 +33,3 @@ function Username() {
 }
 
 export default Username;
-/*
-export default () => (
-  <GlobalStateProvider>
-    <Username />
-  </GlobalStateProvider>
-);
-*/
