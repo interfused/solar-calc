@@ -16,6 +16,10 @@ function EnergyUsageForm() {
     const month = formData.get("month") as string;
     const kWh = parseFloat(formData.get("kWh") as string);
 
+    if (isNaN(formData.get("kWh"))) {
+      return;
+    }
+
     const newEntry: EnergyUsageEntry = { month, kWh };
 
     setGlobalState((prevState) => ({
@@ -58,7 +62,7 @@ function EnergyUsageForm() {
       <div className="sm:col-span-3 text-left">
         <label className="block text-sm/6 font-medium">kWh Used</label>
         <input
-          type="text"
+          type="number"
           name="kWh"
           data-testid="kWhEntry"
           required

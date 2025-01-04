@@ -16,6 +16,9 @@ export function getFormattedNumberString(n: number) {
 
 export function Calculations() {
   const [panelWattage, setPanelWattage] = useState(350);
+  const [panelWidth, setPanelWidth] = useState(0);
+  const [panelLength, setPanelLength] = useState(0);
+
   const { globalState } = useGlobalState();
 
   const getTableContents = (entries: EnergyEntry[]) => {
@@ -77,12 +80,34 @@ export function Calculations() {
   return (
     <div className="text-left">
       <h2 className="mt-8 mb-4">Solar Panel Details</h2>
-      <label htmlFor="panelWattage">Panel Wattage (W):</label>
+      <label htmlFor="panelWattage">Wattage (W):</label>
       <input
         id="panelWattage"
         type="number"
         defaultValue={panelWattage}
         onChange={(e) => setPanelWattage(Number(e.target.value))}
+        className="border p-2 mt-2 ml-2"
+      />
+
+      <label htmlFor="panelLength" className="ml-4">
+        Length (feet):
+      </label>
+      <input
+        id="panelLength"
+        type="number"
+        defaultValue={panelLength}
+        onChange={(e) => setPanelLength(Number(e.target.value))}
+        className="border p-2 mt-2 ml-2"
+      />
+
+      <label htmlFor="panelWidth" className="ml-4">
+        Width (feet):
+      </label>
+      <input
+        id="panelWidth"
+        type="number"
+        defaultValue={panelWidth}
+        onChange={(e) => setPanelWidth(Number(e.target.value))}
         className="border p-2 mt-2 ml-2"
       />
 
@@ -127,6 +152,11 @@ export function Calculations() {
               {
                 header: "System Size (kW)",
                 value: getFormattedNumberString(systemSize),
+                bgColor: "blue",
+              },
+              {
+                header: "Dimensions (ft2)",
+                value: panelLength * panelWidth * panelCnt,
                 bgColor: "blue",
               },
             ].map((metric, index) => (

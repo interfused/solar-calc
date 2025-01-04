@@ -86,13 +86,13 @@ function LatLongForm() {
             className="text-white bg-blue-500"
             aria-label="Submit"
           >
-            Submit
+            {isLoading ? "Loading..." : "Submit"}
           </button>
         </div>
       </form>
       <div className="text-left font-bold mt-2 text-red-500">
         {error}
-        {isLoading ? "Loading..." : ""}
+
         {!globalState.LocationData.avg_dni && (
           <span>Need to enter your location.</span>
         )}
