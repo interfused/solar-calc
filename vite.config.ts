@@ -8,9 +8,6 @@ export default defineConfig({
   build: {
     rollupOptions: {
       // Avoid bundling test files
-      input: {
-        main: "src/main.tsx",
-      },
     },
   },
   esbuild: {
