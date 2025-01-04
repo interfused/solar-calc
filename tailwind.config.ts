@@ -7,6 +7,12 @@ const config: Config = {
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  safelist: [
+    "bg-blue-100",
+    "bg-yellow-100",
+    "text-center",
+    // Add all dynamic classes here
+  ],
   theme: {
     extend: {
       gridTemplateColumns: {

@@ -5,4 +5,18 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   plugins: [react()],
   base: "",
+  build: {
+    rollupOptions: {
+      // Avoid bundling test files
+    },
+  },
+  esbuild: {
+    // Exclude test files during the build
+    exclude: [
+      "**/__tests__/**",
+      "**/*.test.*",
+      "**/*.spec.*",
+      "**/jest.setup.ts",
+    ],
+  },
 });

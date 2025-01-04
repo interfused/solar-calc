@@ -16,6 +16,9 @@ export function getFormattedNumberString(n: number) {
 
 export function Calculations() {
   const [panelWattage, setPanelWattage] = useState(350);
+  const [panelWidth, setPanelWidth] = useState(0);
+  const [panelLength, setPanelLength] = useState(0);
+
   const { globalState } = useGlobalState();
 
   const getTableContents = (entries: EnergyEntry[]) => {
@@ -77,7 +80,7 @@ export function Calculations() {
   return (
     <div className="text-left">
       <h2 className="mt-8 mb-4">Solar Panel Details</h2>
-      <label htmlFor="panelWattage">Panel Wattage (W):</label>
+      <label htmlFor="panelWattage">Wattage (W):</label>
       <input
         id="panelWattage"
         type="number"
@@ -86,15 +89,39 @@ export function Calculations() {
         className="border p-2 mt-2 ml-2"
       />
 
+      <label htmlFor="panelLength" className="ml-4">
+        Length (feet):
+      </label>
+      <input
+        id="panelLength"
+        type="number"
+        defaultValue={panelLength}
+        onChange={(e) => setPanelLength(Number(e.target.value))}
+        className="border p-2 mt-2 ml-2"
+      />
+
+      <label htmlFor="panelWidth" className="ml-4">
+        Width (feet):
+      </label>
+      <input
+        id="panelWidth"
+        type="number"
+        defaultValue={panelWidth}
+        onChange={(e) => setPanelWidth(Number(e.target.value))}
+        className="border p-2 mt-2 ml-2"
+      />
+
       <div className="md:grid md:grid-cols-2 md:gap-4 mt-8">
         <div className="bg-gray-100 p-4 border border-solid border-gray-200 bg-gray-50">
           <h2 className="mb-4">Results for Your Location</h2>
           <p>
-            <strong>Average DNI:</strong> {globalState.LocationData.avg_dni}
-            <span className="ml-4">
+            <span data-testid="averageDni">
+              <strong>Average DNI:</strong> {globalState.LocationData.avg_dni}
+            </span>
+            <span className="ml-4" data-testid="averageGhi">
               <strong>Average GHI:</strong> {globalState.LocationData.avg_ghi}
             </span>
-            <span className="ml-4">
+            <span className="ml-4" data-testid="averageLatTilt">
               <strong>Average Lat Tilt:</strong>{" "}
               {globalState.LocationData.avg_lat_tilt}
             </span>
@@ -125,6 +152,11 @@ export function Calculations() {
               {
                 header: "System Size (kW)",
                 value: getFormattedNumberString(systemSize),
+                bgColor: "blue",
+              },
+              {
+                header: "Dimensions (ft2)",
+                value: panelLength * panelWidth * panelCnt,
                 bgColor: "blue",
               },
             ].map((metric, index) => (
