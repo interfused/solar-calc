@@ -90,11 +90,13 @@ export function Calculations() {
         <div className="bg-gray-100 p-4 border border-solid border-gray-200 bg-gray-50">
           <h2 className="mb-4">Results for Your Location</h2>
           <p>
-            <strong>Average DNI:</strong> {globalState.LocationData.avg_dni}
-            <span className="ml-4">
+            <span data-testid="averageDni">
+              <strong>Average DNI:</strong> {globalState.LocationData.avg_dni}
+            </span>
+            <span className="ml-4" data-testid="averageGhi">
               <strong>Average GHI:</strong> {globalState.LocationData.avg_ghi}
             </span>
-            <span className="ml-4">
+            <span className="ml-4" data-testid="averageLatTilt">
               <strong>Average Lat Tilt:</strong>{" "}
               {globalState.LocationData.avg_lat_tilt}
             </span>

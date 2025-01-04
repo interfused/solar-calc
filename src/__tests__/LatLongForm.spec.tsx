@@ -1,36 +1,69 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { act } from "react";
 import App from "../App";
+
+const changeInputs = (latitude: string, longitude: string) => {
+  const form = screen.getByTestId("locationForm");
+  const latitudeInput = screen.getByLabelText("latitude");
+  const longitudeInput = screen.getByLabelText("longitude");
+
+  fireEvent.change(latitudeInput, { target: { value: latitude } });
+  fireEvent.change(longitudeInput, { target: { value: longitude } });
+  fireEvent.submit(form); // Trigger the submit event on the form
+};
+
 beforeEach(() => {
   fetchMock.resetMocks(); // Reset previous mocks
+  /*
   fetchMock.mockResponseOnce(
     JSON.stringify({
       outputs: {
         avg_dni: { annual: 4.74 },
-        avg_ghi: { annual: 5.25 },
-        avg_lat_tilt: { annual: 22 },
+        avg_ghi: { annual: 4.87 },
+        avg_lat_tilt: { annual: 5.39 },
       },
     })
   );
-
+  */
   // Mock the reset method to avoid errors in tests
   //HTMLFormElement.prototype.reset = jest.fn();
 });
-
-test("shows Average DNI: text", () => {
+test("shows message if input missing", async () => {
   render(<App />);
-  const basicText = screen.getByText(/Average DNI:/i); // Replace with actual text in your App
-  expect(basicText).toBeInTheDocument();
+
+  changeInputs("", "-81.480933");
+  expect(screen.getByText(/Need to enter your location./i)).toBeInTheDocument();
+
+  changeInputs("-81.480933", "");
+  expect(screen.getByText(/Need to enter your location./i)).toBeInTheDocument();
 });
 
 test("gets values from API", async () => {
   render(<App />);
-  const form = screen.getByTestId("locationForm");
-  fireEvent.submit(form); // Trigger the submit event on the form
 
-  // Wait for the fetch to resolve and the data to be rendered
+  fetchMock.mockResponseOnce(
+    JSON.stringify({
+      outputs: {
+        avg_dni: { annual: 4.74 },
+        avg_ghi: { annual: 4.87 },
+        avg_lat_tilt: { annual: 5.39 },
+      },
+    })
+  );
+
+  // Simulate input change
+  act(() => {
+    changeInputs("28.703660", "-81.480933"); // Ensure changeInputs triggers a state update
+  });
+
+  // Wait for the API to resolve and the data to be rendered
   await waitFor(() => screen.findByText(/4.74/i));
 
-  // Assert that the fetched data is displayed
-  const dniValue = screen.getByText(/4.74/i);
-  expect(dniValue).toBeInTheDocument();
+  // Query for the element using your CSS selector
+  let element = screen.getByTestId("averageDni");
+  expect(element).toHaveTextContent("4.74");
+  element = screen.getByTestId("averageGhi");
+  expect(element).toHaveTextContent("4.87");
+  element = screen.getByTestId("averageLatTilt");
+  expect(element).toHaveTextContent("5.39");
 });

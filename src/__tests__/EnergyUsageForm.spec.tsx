@@ -12,7 +12,7 @@ const changeInputs = (month: string, kWh: string) => {
 };
 
 describe("Energy input affects daily kWh", () => {
-  test("see it in final calculations", async () => {
+  it("see it in final calculations", async () => {
     render(<App />);
     changeInputs("January", "1612");
 

@@ -63,6 +63,7 @@ function LatLongForm() {
           <input
             type="text"
             name="latitude"
+            aria-label="latitude"
             required
             defaultValue="28.703660"
             className="block w-full"
@@ -73,6 +74,7 @@ function LatLongForm() {
           <input
             type="text"
             name="longitude"
+            aria-label="longitude"
             required
             defaultValue="-81.480933"
             className="block w-full"
