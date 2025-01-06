@@ -1,6 +1,7 @@
+import { createRoutesStub } from "react-router";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import App from "../App";
-
+let Stub: any;
 const changeInputs = (month: string, kWh: string) => {
   const form = screen.getByTestId("energyEntryForm");
   const input = screen.getByTestId("kWhEntry");
@@ -10,10 +11,20 @@ const changeInputs = (month: string, kWh: string) => {
   fireEvent.change(input, { target: { value: kWh } });
   fireEvent.submit(form); // Trigger the submit event on the form
 };
+beforeAll(() => {
+  // Initialize the route stub once for all tests
+  Stub = createRoutesStub([
+    {
+      path: "/",
+      Component: App,
+    },
+  ]);
+});
 
 describe("Energy input affects daily kWh", () => {
   it("see it in final calculations", async () => {
-    render(<App />);
+    // render the app stub at "/"
+    render(<Stub initialEntries={["/"]} />);
     changeInputs("January", "1612");
 
     // Assert that the fetched data is displayed
