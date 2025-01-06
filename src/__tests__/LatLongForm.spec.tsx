@@ -1,3 +1,4 @@
+import { createRoutesStub } from "react-router";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { act } from "react";
 import App from "../App";
@@ -12,24 +13,28 @@ const changeInputs = (latitude: string, longitude: string) => {
   fireEvent.submit(form); // Trigger the submit event on the form
 };
 
+let Stub;
+
+beforeAll(() => {
+  // Initialize the route stub once for all tests
+  Stub = createRoutesStub([
+    {
+      path: "/",
+      Component: App,
+    },
+  ]);
+});
+
 beforeEach(() => {
   fetchMock.resetMocks(); // Reset previous mocks
-  /*
-  fetchMock.mockResponseOnce(
-    JSON.stringify({
-      outputs: {
-        avg_dni: { annual: 4.74 },
-        avg_ghi: { annual: 4.87 },
-        avg_lat_tilt: { annual: 5.39 },
-      },
-    })
-  );
-  */
+
   // Mock the reset method to avoid errors in tests
   //HTMLFormElement.prototype.reset = jest.fn();
 });
+
 test("shows message if input missing", async () => {
-  render(<App />);
+  // render the app stub at "/"
+  render(<Stub initialEntries={["/"]} />);
 
   changeInputs("", "-81.480933");
   expect(screen.getByText(/Need to enter your location./i)).toBeInTheDocument();
@@ -39,8 +44,8 @@ test("shows message if input missing", async () => {
 });
 
 test("gets values from API", async () => {
-  render(<App />);
-
+  // render the app stub at "/"
+  render(<Stub initialEntries={["/"]} />);
   fetchMock.mockResponseOnce(
     JSON.stringify({
       outputs: {

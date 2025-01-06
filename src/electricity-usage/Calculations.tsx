@@ -79,38 +79,6 @@ export function Calculations() {
 
   return (
     <div className="text-left">
-      <h2 className="mt-8 mb-4">Solar Panel Details</h2>
-      <label htmlFor="panelWattage">Wattage (W):</label>
-      <input
-        id="panelWattage"
-        type="number"
-        defaultValue={panelWattage}
-        onChange={(e) => setPanelWattage(Number(e.target.value))}
-        className="border p-2 mt-2 ml-2"
-      />
-
-      <label htmlFor="panelLength" className="ml-4">
-        Length (feet):
-      </label>
-      <input
-        id="panelLength"
-        type="number"
-        defaultValue={panelLength}
-        onChange={(e) => setPanelLength(Number(e.target.value))}
-        className="border p-2 mt-2 ml-2"
-      />
-
-      <label htmlFor="panelWidth" className="ml-4">
-        Width (feet):
-      </label>
-      <input
-        id="panelWidth"
-        type="number"
-        defaultValue={panelWidth}
-        onChange={(e) => setPanelWidth(Number(e.target.value))}
-        className="border p-2 mt-2 ml-2"
-      />
-
       <div className="md:grid md:grid-cols-2 md:gap-4 mt-8">
         <div className="bg-gray-100 p-4 border border-solid border-gray-200 bg-gray-50">
           <h2 className="mb-4">Results for Your Location</h2>
@@ -137,31 +105,42 @@ export function Calculations() {
             {[
               {
                 header: "Monthly kWh",
+                id: "metric_monthlykwh",
                 value: getFormattedNumberString(monthlyKWH),
               },
               {
                 header: "Daily kWh",
+                id: "metric_dailykwh",
                 value: getFormattedNumberString(dailyKWH),
                 bgColor: "yellow",
               },
               {
                 header: "Hourly kWh",
+                id: "metric_hourlykwh",
                 value: getFormattedNumberString(hourlyKWH),
               },
-              { header: "Panels Needed", value: panelCnt, bgColor: "blue" },
+              {
+                header: "Panels Needed",
+                id: "metric_panelCnt",
+                value: panelCnt,
+                bgColor: "blue",
+              },
               {
                 header: "System Size (kW)",
+                id: "metric_systemkw",
                 value: getFormattedNumberString(systemSize),
                 bgColor: "blue",
               },
               {
                 header: "Dimensions (ft2)",
+                id: "metric_systemdimensions",
                 value: panelLength * panelWidth * panelCnt,
                 bgColor: "blue",
               },
-            ].map((metric, index) => (
+            ].map((metric) => (
               <Metric
-                key={index}
+                key={metric.id}
+                testId={metric.id}
                 displayHeader={metric.header}
                 displayValue={metric.value}
                 bgColor={metric.bgColor}
@@ -170,6 +149,43 @@ export function Calculations() {
           </div>
           <p className="text-sm mt-4">Based on averages of your usage.</p>
         </div>
+      </div>
+
+      <div>
+        <h2 className="mt-8 mb-4">Solar Panel Details</h2>
+        <label htmlFor="panelWattage">Wattage (W):</label>
+        <input
+          id="panelWattage"
+          aria-label="panelWattage"
+          type="number"
+          defaultValue={panelWattage}
+          onChange={(e) => setPanelWattage(Number(e.target.value))}
+          className="border p-2 mt-2 ml-2"
+        />
+
+        <label htmlFor="panelLength" className="ml-4">
+          Length (feet):
+        </label>
+        <input
+          id="panelLength"
+          aria-label="panelLength"
+          type="number"
+          defaultValue={panelLength}
+          onChange={(e) => setPanelLength(Number(e.target.value))}
+          className="border p-2 mt-2 ml-2"
+        />
+
+        <label htmlFor="panelWidth" className="ml-4">
+          Width (feet):
+        </label>
+        <input
+          id="panelWidth"
+          aria-label="panelWidth"
+          type="number"
+          defaultValue={panelWidth}
+          onChange={(e) => setPanelWidth(Number(e.target.value))}
+          className="border p-2 mt-2 ml-2"
+        />
       </div>
     </div>
   );
