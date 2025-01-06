@@ -46,5 +46,6 @@
     "typescript-eslint": "^8.18.2",
     "vite": "^6.0.5",
     "whatwg-fetch": "^3.6.20"
-  }
+  },
+  "homepage":"."
 }
