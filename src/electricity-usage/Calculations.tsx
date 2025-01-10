@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect } from "react";
 import { useGlobalState } from "../GlobalStateContext";
 import Metric from "./Metric";
+import UsageTable from "./UsageTable";
 
 interface EnergyEntry {
   month: string;
@@ -15,39 +16,7 @@ export function getFormattedNumberString(n: number) {
 }
 
 export function Calculations() {
-  const [panelWattage, setPanelWattage] = useState(350);
-  const [panelWidth, setPanelWidth] = useState(0);
-  const [panelLength, setPanelLength] = useState(0);
-
   const { globalState } = useGlobalState();
-
-  const getTableContents = (entries: EnergyEntry[]) => {
-    if (!entries.length) {
-      return <span>No energy entries available. Please add some data.</span>;
-    }
-
-    return (
-      <>
-        <h2 className="font-bold mt-8">Energy Usage History</h2>
-        <table className="w-full border border-gray-200 mt-4">
-          <thead>
-            <tr>
-              <th>Month</th>
-              <th>kWh</th>
-            </tr>
-          </thead>
-          <tbody>
-            {entries.map((entry, index) => (
-              <tr key={index}>
-                <td>{entry.month}</td>
-                <td>{entry.kWh}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </>
-    );
-  };
 
   const getSystemDetails = (
     dailyKWH: number,
@@ -74,8 +43,15 @@ export function Calculations() {
   const { panelCnt, systemSize } = getSystemDetails(
     dailyKWH,
     globalState.LocationData.avg_dni,
-    panelWattage
+    globalState.panelData.wattage
   );
+
+  useEffect(() => {
+    console.log(
+      "global state values need to be rendered in Calculations:",
+      globalState
+    );
+  }, [globalState]);
 
   return (
     <div className="text-left">
@@ -94,9 +70,12 @@ export function Calculations() {
               {globalState.LocationData.avg_lat_tilt}
             </span>
           </p>
-          <div className="mt-4">
-            {getTableContents(globalState.energyEntries)}
-          </div>
+
+          {globalState.energyEntries.length > 0 && (
+            <div className="mt-8">
+              <UsageTable />
+            </div>
+          )}
         </div>
 
         <div className="bg-white p-4">
@@ -134,7 +113,10 @@ export function Calculations() {
               {
                 header: "Dimensions (ft2)",
                 id: "metric_systemdimensions",
-                value: panelLength * panelWidth * panelCnt,
+                value:
+                  globalState.panelData.length *
+                  globalState.panelData.width *
+                  panelCnt,
                 bgColor: "blue",
               },
             ].map((metric) => (
@@ -149,43 +131,6 @@ export function Calculations() {
           </div>
           <p className="text-sm mt-4">Based on averages of your usage.</p>
         </div>
-      </div>
-
-      <div>
-        <h2 className="mt-8 mb-4">Solar Panel Details</h2>
-        <label htmlFor="panelWattage">Wattage (W):</label>
-        <input
-          id="panelWattage"
-          aria-label="panelWattage"
-          type="number"
-          defaultValue={panelWattage}
-          onChange={(e) => setPanelWattage(Number(e.target.value))}
-          className="border p-2 mt-2 ml-2"
-        />
-
-        <label htmlFor="panelLength" className="ml-4">
-          Length (feet):
-        </label>
-        <input
-          id="panelLength"
-          aria-label="panelLength"
-          type="number"
-          defaultValue={panelLength}
-          onChange={(e) => setPanelLength(Number(e.target.value))}
-          className="border p-2 mt-2 ml-2"
-        />
-
-        <label htmlFor="panelWidth" className="ml-4">
-          Width (feet):
-        </label>
-        <input
-          id="panelWidth"
-          aria-label="panelWidth"
-          type="number"
-          defaultValue={panelWidth}
-          onChange={(e) => setPanelWidth(Number(e.target.value))}
-          className="border p-2 mt-2 ml-2"
-        />
       </div>
     </div>
   );

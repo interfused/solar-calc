@@ -35,11 +35,16 @@ function LatLongForm() {
         avg_ghi: data.outputs.avg_ghi.annual,
         avg_lat_tilt: data.outputs.avg_lat_tilt.annual,
       };
-
+      setGlobalState({
+        ...globalState,
+        LocationData: newEntry,
+      });
+      /*
       setGlobalState((prevState) => ({
         ...prevState,
         LocationData: newEntry, // Update only LocationData
       }));
+      */
     } catch (err: any) {
       console.error("Error fetching location data:", err);
       setError(err.message);

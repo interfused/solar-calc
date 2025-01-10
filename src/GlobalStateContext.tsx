@@ -1,10 +1,11 @@
 import React, { createContext, useContext, useState } from "react";
-import { EnergyUsageEntry, LocationData } from "./types/basicTypes";
+import { EnergyUsageEntry, LocationData, PanelData } from "./types/basicTypes";
 // Define the structure of the global state
 type GlobalState = {
   energyEntries: EnergyUsageEntry[]; // Add energyEntries to the global state
   LocationData: LocationData;
   userName: string;
+  panelData: PanelData;
 };
 // Define the context type
 type GlobalStateContextType = {
@@ -28,6 +29,7 @@ export const GlobalStateProvider: React.FC<{ children: React.ReactNode }> = ({
       avg_lat_tilt: 0,
     },
     userName: "",
+    panelData: { wattage: 350, length: 0, width: 0 },
   });
   return (
     <GlobalStateContext.Provider value={{ globalState, setGlobalState }}>

@@ -10,3 +10,9 @@ export type LocationData = {
   avg_ghi: number;
   avg_lat_tilt: number;
 };
+
+export type PanelData = {
+  wattage: number;
+  length: number;
+  width: number;
+};

@@ -1,5 +1,11 @@
 import { NavLink } from "react-router";
 
+const entries = [
+  { id: "homeLink", link: "/", label: "Home" },
+  { id: "settingsLink", link: "/settings", label: "Settings" },
+  { id: "glossaryLink", link: "/glossary", label: "Glossary" },
+];
+
 export function AppNav() {
   return (
     <>
@@ -36,22 +42,18 @@ export function AppNav() {
             </svg>
           </button>
         </div>
+
         <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
           <div className="text-left lg:flex-grow">
-            <NavLink
-              to="/"
-              className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
-            >
-              Home
-            </NavLink>
-
-            <NavLink
-              className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
-              to="/glossary"
-              end
-            >
-              Glossary
-            </NavLink>
+            {entries.map((el) => (
+              <NavLink
+                key={el.id}
+                to={el.link}
+                className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
+              >
+                {el.label}
+              </NavLink>
+            ))}
           </div>
         </div>
       </nav>
